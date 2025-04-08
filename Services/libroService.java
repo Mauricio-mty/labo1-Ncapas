@@ -1,11 +1,10 @@
 package Services;
 
 import Classes.libro;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class libroService {
@@ -26,7 +25,7 @@ public class libroService {
         int ventasTotales = s.nextInt();
         s.nextLine(); // Limpiar buffer
 
-        libro nuevo = new libro(autor, Integer.parseInt(idNumber()), precio, tipoLibro, ventasTotales);
+        libro nuevo = new libro(autor, idNumber(1,10000), precio, tipoLibro, ventasTotales);
         libros.add(nuevo);
     }
 
@@ -53,14 +52,17 @@ public class libroService {
     }
 
     // Generador idLibro (mismo que en ventaService)
-    String idNumber() {
-        LocalDate fechaActual = LocalDate.now();
+    public int idNumber(int min, int max) {
+      /*  LocalDate fechaActual = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
         DateTimeFormatter formateadorHora = DateTimeFormatter.ofPattern("HHmmss");
         String horaFormateada = horaActual.format(formateadorHora);
-        String resultado = fechaActual.getYear() + "-" + horaFormateada;
+        String resultado = fechaActual.getYear() +  horaFormateada;
         System.out.println("Nuevo id:" + resultado);
-        return resultado;
+        */
+
+            Random rand = new Random();
+            return rand.nextInt((max - min) + 1) + min;
     }
 
     public libro getLibroMasVendido() {

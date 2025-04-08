@@ -1,13 +1,14 @@
 import Services.ventaService;
 import Services.libroService;
+import Services.categoriaService;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         boolean O = true;
         Scanner s = new Scanner(System.in);
-        ventaService venta = new ventaService(libro);
         libroService libro = new libroService();
+        ventaService venta = new ventaService(libro);
         categoriaService categorias = new categoriaService();
 
         do {
