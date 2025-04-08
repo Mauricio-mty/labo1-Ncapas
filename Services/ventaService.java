@@ -1,5 +1,6 @@
 package Services;
 
+import Classes.Venta;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -7,27 +8,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Classes.Venta;
-
 public class ventaService {
     private List<Venta> ventas = new ArrayList<>();
 
+    //New venta add to list
     public void newVenta(Scanner s){
-        System.out.print("Ingrese nombre producto");
-        String producto = s.nextLine();
+        libroService ls = new libroService();
+        
+        System.out.print("Ingrese ID del producto: ");
+        int idProducto = s.nextInt();
+        s.nextLine(); // Limpiar buffer
 
-        System.out.print("Ingrese la cantidad");
+        if(!ls.existeLibro(idProducto)) {
+            System.out.println("Error: El libro con ID " + idProducto + " no existe");
+            return;
+        }
+
+        System.out.print("Ingrese la cantidad: ");
         int cantidad = s.nextInt();
+        s.nextLine(); // Limpiar buffer
 
-        /*Debe ir la funcion que verifique producto si existe se obtiene el id del producto*/
-        /*Debe ir la funcion  que calcule el total seria con precio de libro * cantidad*/
+        System.out.print("Ingrese el total: ");
+        double total = s.nextDouble();
+        s.nextLine(); // Limpiar buffer
+
         String fecha = LocalDate.now().toString();
 
-        Venta nuevo = new Venta(cantidad,fecha,4,idNumber(), 5.99);
+        Venta nuevo = new Venta(cantidad, fecha, idProducto, idNumber(), total);
+        ls.actualizarVentasLibro(idProducto, cantidad);
         ventas.add(nuevo);
-
     }
-
+    
+    public List<Venta> getAllSales() {
+        return ventas;
+    }
+    
+    
+    //Generador idVenta 
     String idNumber(){
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaActual = LocalTime.now();

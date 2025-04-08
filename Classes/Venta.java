@@ -1,21 +1,22 @@
 package Classes;
 
-public class venta {
-    String idVenta;
-    int idLibro;
-    int cantidad;
-    String fecha;
-    Float total;
-    boolean estado;
+public class Venta {
+    private String idVenta;
+    private int idLibro;
+    private  int cantidad;
+    private String fecha;
+    private double total;
+    private boolean estado;
 
-    public venta(int cantidad, boolean estado, String fecha, int idLibro, String idVenta, Float total) {
+    public Venta(int cantidad, String fecha, int idLibro, String idVenta, double total) {
         this.cantidad = cantidad;
-        this.estado = estado;
+        //this.estado = estado;
         this.fecha = fecha;
         this.idLibro = idLibro;
         this.idVenta = idVenta;
         this.total = total;
     }
+    
 
     public String getIdVenta() {
         return idVenta;
@@ -33,7 +34,7 @@ public class venta {
         return fecha;
     }
 
-    public Float getTotal() {
+    public double  getTotal() {
         return total;
     }
 
