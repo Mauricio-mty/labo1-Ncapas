@@ -7,14 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import Classes.libro;
 
 public class ventaService {
     private List<Venta> ventas = new ArrayList<>();
+    private libroService ls; 
 
-    //New venta add to list
+   
+    public ventaService(libroService ls) {
+        this.ls = ls;
+    }
+
     public void newVenta(Scanner s){
-        libroService ls = new libroService();
-        
         System.out.print("Ingrese ID del producto: ");
         int idProducto = s.nextInt();
         s.nextLine(); // Limpiar buffer
@@ -35,26 +39,22 @@ public class ventaService {
         String fecha = LocalDate.now().toString();
 
         Venta nuevo = new Venta(cantidad, fecha, idProducto, idNumber(), total);
-        ls.actualizarVentasLibro(idProducto, cantidad);
+        ls.actualizarVentasLibro(idProducto, cantidad); 
         ventas.add(nuevo);
+
+        System.out.println("Venta registrada con éxito.");
     }
-    
+
     public List<Venta> getAllSales() {
         return ventas;
     }
-    
-    
+
     //Generador idVenta 
     String idNumber(){
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
-
         DateTimeFormatter formateadorHora = DateTimeFormatter.ofPattern("HHmmss");
         String horaFormateada = horaActual.format(formateadorHora);
-
-
-        String resultado = fechaActual.getYear() + "-" + horaFormateada;
-        System.out.println("Nuevo id:" + resultado);
-        return resultado;
+        return fechaActual.getYear() + "-" + horaFormateada;
     }
 }

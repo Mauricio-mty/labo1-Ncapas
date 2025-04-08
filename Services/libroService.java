@@ -108,4 +108,23 @@ public class libroService {
             }
         }
     }
+
+    public void buscarLibrosPorTipo(String tipo) {
+        List<libro> encontrados = new ArrayList<>();
+        for (libro l : libros) {
+            if (l.getTipo_libro().equalsIgnoreCase(tipo)) {
+                encontrados.add(l);
+            }
+        }
+    
+        if (encontrados.isEmpty()) {
+            System.out.println("No se encontraron libros del tipo: " + tipo);
+        } else {
+            System.out.println("Libros encontrados del tipo " + tipo + ":");
+            for (libro l : encontrados) {
+                System.out.println("- ID: " + l.getId_libro() + ", Autor: " + l.getAutor() + ", Precio: $" + l.getPrecio());
+            }
+        }
+    }
+    
 }
