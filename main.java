@@ -6,8 +6,9 @@ public class Main {
     public static void main(String[] args) {
         boolean O = true;
         Scanner s = new Scanner(System.in);
-        ventaService venta = new ventaService();
+        ventaService venta = new ventaService(libro);
         libroService libro = new libroService();
+        categoriaService categorias = new categoriaService();
 
         do {
             System.out.println("""
@@ -18,10 +19,11 @@ public class Main {
                               3- Nuevo libro
                               4- Libro más vendido
                               5- Libros con más de N ventas
-                              6- Salir""");
+                              6- Buscar libros por tipo
+                              7- Salir""");
             int opcion = s.nextInt();
-            s.nextLine(); // Limpiar buffer
-            
+            s.nextLine();
+        
             switch (opcion) {
                 case 1: 
                     venta.newVenta(s);
@@ -41,12 +43,18 @@ public class Main {
                     s.nextLine();
                     libro.mostrarLibrosConMasDeNVentas(n);
                     break;
-                case 6: 
-                    O = false; 
+                case 6:
+                    System.out.print("Ingrese el tipo de libro a buscar: ");
+                    String tipo = s.nextLine();
+                    libro.buscarLibrosPorTipo(tipo);
+                    break;
+                case 7:
+                    O = false;
                     break;
                 default:
                     System.out.println("Opción no válida");
             }
+        
         } while (O);
 
         s.close();
